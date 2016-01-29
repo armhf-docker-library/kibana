@@ -1,4 +1,4 @@
-FROM armhfbuild/debian:jessie
+FROM armhfbuild/node:5.5.0
 
 # add our user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
@@ -29,6 +29,7 @@ RUN set -x \
 ENV PATH /opt/kibana/bin:$PATH
 
 COPY ./docker-entrypoint.sh /
+COPY ./kibana /opt/kibana/bin/
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
