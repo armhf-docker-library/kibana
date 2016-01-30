@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/local/bin/node "$NODE_OPTIONS" /opt/kibana/src/cli ${@}
+exec /usr/local/bin/node $NODE_OPTIONS /opt/kibana/src/cli ${@}
