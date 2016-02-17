@@ -1,15 +1,52 @@
 matrix:
   VERSION:
-    - "4.3.1"
+    - "4.3.2"
+    - "4.4.1"
 
 publish:
-  docker:
-    file: "$$VERSION/Dockerfile"
-    context: "$$VERSION"
+  hub_4.3.2:
+    image: armhfplugins/drone-docker
+    file: version/Dockerfile
+    context: version
     username: $$DOCKER_USER
     email: $$DOCKER_EMAIL
     password: $$DOCKER_PASSWORD
     repo: armhfbuild/kibana
-    tag: "$$VERSION"
     force_tag: true
     storage_driver: overlay
+    build_args:
+      - KIBANA_VERSION=$$VERSION
+      - KIBANA_SHA1=7156fc24ccb8b6c07019dfcc4f7bdccdc97a4e10
+    tag:
+      - "4.3.2"
+      - "4.3"
+    when:
+      matrix:
+        VERSION: "4.3.2"
+
+  hub_4.4.1:
+    image: armhfplugins/drone-docker
+    file: version/Dockerfile
+    context: version
+    username: $$DOCKER_USER
+    email: $$DOCKER_EMAIL
+    password: $$DOCKER_PASSWORD
+    repo: armhfbuild/kibana
+    force_tag: true
+    storage_driver: overlay
+    build_args:
+      - KIBANA_VERSION=$$VERSION
+      - KIBANA_SHA1=b4f1b5d89a0854e3fb1e6d31faa1bc78e063b083
+    tag:
+      - "4.4.1"
+      - "4.4"
+      - "4"
+      - "latest"
+    when:
+      matrix:
+        VERSION: "4.4.1"
+
+notify:
+  slack:
+    webhook_url: $$SLACK_WEBHOOK_URL
+    channel: armhf
